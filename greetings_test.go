@@ -13,16 +13,16 @@ func expectEqual(t testing.TB, result, expected interface{}) {
 
 func TestHello(t *testing.T) {
 	t.Run("should create greeting to <name>", func(t *testing.T) {
-		result, _ := Hello("Gara")
-		expected := "Hi, Gara. Welcome!"
+		result, err := Hello("Gara")
 
-		expectEqual(t, result, expected)
+		expectEqual(t, result, "Hi, Gara. Welcome!")
+		expectEqual(t, err, nil)
 	})
 
 	t.Run("should return error if <name> is empty", func(t *testing.T) {
-		_, error := Hello("")
-		expected_error := ErrorEmptyName.Error()
+		result, err := Hello("")
 
-		expectEqual(t, error.Error(), expected_error)
+		expectEqual(t, err.Error(), ErrorEmptyName.Error())
+		expectEqual(t, result, "")
 	})
 }
